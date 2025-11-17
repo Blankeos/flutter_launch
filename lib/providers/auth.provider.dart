@@ -23,8 +23,11 @@ class AuthProvider with ChangeNotifier {
 
   final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
 
+  late AuthService authService;
+
   // Call this manually after provider is set up
   Future<void> init() async {
+    authService = await getAuthService;
     if (_initialized) return; // Prevent double initialization
 
     _loading = true;
@@ -49,7 +52,9 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  final loginOtpCommand = Command.createAsync<String, String?>((email) async {
+  late final loginOtpCommand = Command.createAsync<String, String?>((
+    email,
+  ) async {
     final userId = await authService.loginOtp(email);
     return userId;
   }, initialValue: null);

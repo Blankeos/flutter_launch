@@ -21,8 +21,8 @@ class HasOnboardedProvider with ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       _hasOnboarded = prefs.getBool('hasOnboarded') ?? false;
 
-      final allKeys = prefs.getKeys();
-      debugPrint("[has_onboarded.provider] allKeys: $allKeys");
+      // final allKeys = prefs.getKeys();
+      // debugPrint("[has_onboarded.provider] allKeys: $allKeys");
 
       notifyListeners();
     } catch (e) {

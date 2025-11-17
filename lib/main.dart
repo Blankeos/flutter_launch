@@ -1,6 +1,7 @@
 import 'package:barrio_bites/go_router_builder.dart';
 import 'package:barrio_bites/providers/auth.provider.dart';
 import 'package:barrio_bites/providers/has_onboarded.provider.dart';
+import 'package:barrio_bites/services/auth.service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
@@ -28,15 +29,21 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   @override
-  Widget build(BuildContext context) {
-    // onMount
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      debugPrint("MOUNTED");
-      final authProvider = context.read<AuthProvider>();
-      await authProvider.init();
-      debugPrint("MOUNTED");
-    });
+  void initState() {
+    super.initState();
 
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await getAuthService;
+
+      if (mounted) {
+        final authProvider = useAuth(context, listen: false);
+        await authProvider.init();
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return CupertinoApp.router(routerConfig: routerConfig);
   }
 }

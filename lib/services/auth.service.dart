@@ -10,24 +10,27 @@ class AuthService {
   final String baseUrl;
   final Dio dio;
 
-  AuthService({required this.baseUrl, Dio? dio}) : dio = dio ?? _createDio();
+  AuthService._({required this.baseUrl, required this.dio});
 
-  static Dio _createDio() {
-    final dio = Dio(
-      BaseOptions(
-        connectTimeout: const Duration(seconds: 10),
-        receiveTimeout: const Duration(seconds: 10),
-        validateStatus: (status) => true, // Handle all status codes manually
-      ),
-    );
+  static Future<AuthService> create({required String baseUrl, Dio? dio}) async {
+    final dioInstance =
+        dio ??
+        Dio(
+          BaseOptions(
+            connectTimeout: const Duration(seconds: 10),
+            receiveTimeout: const Duration(seconds: 10),
+            validateStatus: (status) =>
+                true, // Handle all status codes manually
+          ),
+        );
 
     // Add cookie manager for automatic cookie handling
-    _setupCookieManager(dio);
+    await _setupCookieManager(dioInstance);
 
-    return dio;
+    return AuthService._(baseUrl: baseUrl, dio: dioInstance);
   }
 
-  static void _setupCookieManager(Dio dio) async {
+  static Future<void> _setupCookieManager(Dio dio) async {
     try {
       // For mobile/desktop: persist cookies to disk
       final appDocDir = await getApplicationDocumentsDirectory();
@@ -148,6 +151,6 @@ class AuthService {
   }
 }
 
-final authService = AuthService(
+final getAuthService = AuthService.create(
   baseUrl: "${dotenv.env['PUBLIC_API_URL']!}/api",
 );
