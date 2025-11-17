@@ -1,8 +1,13 @@
+import 'dart:convert';
+
 import 'package:barrio_bites/providers/auth.provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -37,7 +42,13 @@ class _HomeScreen extends State<HomeScreen> {
             Container(height: 50),
 
             if (auth.isAuthenticated)
-              const Text("Is Authenticated")
+              Text(
+                JsonEncoder.withIndent('  ').convert(auth.user),
+                style: const TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 14.0, // Optional: adjust size for readability
+                ),
+              )
             else
               const Text("Is not Authenticated"),
             Container(height: 50),
@@ -53,12 +64,18 @@ class _HomeScreen extends State<HomeScreen> {
             OtpLoginForm(),
 
             Container(height: 20),
-            PlatformElevatedButton(
-              onPressed: () {
-                auth.logoutCommand.run();
-              },
-              child: const Text('Logout'),
-            ),
+
+            OAuthButtons(),
+
+            Container(height: 20),
+
+            if (auth.isAuthenticated)
+              PlatformElevatedButton(
+                onPressed: () {
+                  auth.logoutCommand.run();
+                },
+                child: const Text('Logout'),
+              ),
           ],
         ),
       ),
@@ -86,6 +103,15 @@ class _OtpLoginFormState extends State<OtpLoginForm> {
       children: [
         PlatformText("Email"),
         if (auth.loginOtpCommand.isRunning.value) PlatformText("(loading...)"),
+        ValueListenableBuilder<bool>(
+          valueListenable: auth.loginOtpCommand.isRunning,
+          builder: (context, result, _) {
+            if (result) {
+              return PlatformText("(loading...)");
+            }
+            return PlatformText("(status)");
+          },
+        ),
         Container(height: 10),
         PlatformTextField(
           controller: _emailController,
@@ -93,8 +119,15 @@ class _OtpLoginFormState extends State<OtpLoginForm> {
         ),
         if (_userId != null) ...[
           PlatformText("OTP"),
-          if (auth.verifyOtpCommand.isRunning.value)
-            PlatformText("(loading...)"),
+          ValueListenableBuilder<bool>(
+            valueListenable: auth.verifyOtpCommand.isRunning,
+            builder: (context, result, _) {
+              if (result) {
+                return PlatformText("(loading...)");
+              }
+              return PlatformText("(status)");
+            },
+          ),
           Container(height: 10),
           PlatformTextField(
             controller: _otpController,
@@ -104,25 +137,79 @@ class _OtpLoginFormState extends State<OtpLoginForm> {
         Container(height: 10),
         PlatformElevatedButton(
           onPressed: () async {
-            if (_userId == null) {
-              // Send OTP
-              final userId = await auth.loginOtpCommand.runAsync(
-                _emailController.text,
-              );
-              if (userId != null) {
-                setState(() {
-                  _userId = userId;
-                });
+            try {
+              if (_userId == null) {
+                // Send OTP
+                final userId = await auth.loginOtpCommand.runAsync(
+                  _emailController.text,
+                );
+                if (userId != null) {
+                  setState(() {
+                    _userId = userId;
+                  });
+                }
+              } else {
+                // Verify OTP
+                await auth.verifyOtpCommand.runAsync((
+                  userId: _userId!,
+                  code: _otpController.text,
+                ));
+
+                _userId = null;
+                _emailController.clear();
+                _otpController.clear();
               }
-            } else {
-              // Verify OTP
-              await auth.verifyOtpCommand.runAsync((
-                userId: _userId!,
-                code: _otpController.text,
-              ));
+            } catch (error) {
+              debugPrint(error.toString());
             }
           },
           child: Text(_userId == null ? 'Send OTP' : 'Login with OTP'),
+        ),
+      ],
+    );
+  }
+}
+
+class OAuthButtons extends StatefulWidget {
+  const OAuthButtons({super.key});
+  @override
+  State<OAuthButtons> createState() => _OAuthButtonsState();
+}
+
+class _OAuthButtonsState extends State<OAuthButtons> {
+  @override
+  Widget build(BuildContext context) {
+    final auth = useAuth(context);
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      spacing: 10,
+      children: [
+        PlatformTextButton(
+          onPressed: () async {
+            final url = await auth.getLoginGoogleUrl();
+            debugPrint("URL: $url");
+
+            await launchUrl(
+              Uri.parse(url),
+              mode: LaunchMode.externalApplication,
+            );
+          },
+          child: SvgPicture.asset(
+            "assets/icons/google.svg",
+            semanticsLabel: 'Google Logo',
+            width: 24,
+            height: 24,
+          ),
+        ),
+        PlatformTextButton(
+          onPressed: () {},
+          child: SvgPicture.asset(
+            "assets/icons/github.svg",
+            semanticsLabel: 'GitHub Logo',
+            width: 24,
+            height: 24,
+          ),
         ),
       ],
     );

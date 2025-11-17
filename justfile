@@ -6,6 +6,10 @@ default:
 dev *args:
     dashmon {{args}}
 
+install:
+    cd ios
+    pod install
+
 api-gen:
     # Make sure to install https://pub.dev/packages/swagger_parser
     dart run swagger_parser

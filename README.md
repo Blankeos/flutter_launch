@@ -5,12 +5,13 @@ A new Flutter project.
 - [x] Routing & Navigation (typesafe) & Nested Layouts & Params (go_router + go_router_builder.dart)
 - [ ] DeepLinks (handled by go_router)
 - [ ] API Calls & Parsing models
-- [ ] Svgs and Static Images, Images from src.
+- [ ] Svgs and Static Images, Images from src. (flutter_svg)
 - [ ] Fonts
 - [ ] Gestures Tap and Touch
 - [ ] Gestures Swipe, used for navigation?
 - [ ] Animations
-- [ ] Cookie Auth + WebViw Redirect (OAuth)
+- [x] Cookie Auth simple fetch. (cookie_jar, dio, dio_cookie_manager)
+- [ ] Cookie Auth + WebView Redirect (OAuth) - I would generally adivce using just `url_launcher`, feels safer. Not webview.
 - [ ] Canvas Skia?
 - [ ] Superwall? Paywall experiments?
 - [ ] Offline Experience - fallback + disabling actions (rn's netinfo)
