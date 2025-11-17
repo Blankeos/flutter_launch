@@ -1,4 +1,3 @@
-import 'package:barrio_bites/providers/auth_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:go_router/go_router.dart';

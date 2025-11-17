@@ -14,3 +14,4 @@ dist/
 
 .dart_tool
 build
+.env

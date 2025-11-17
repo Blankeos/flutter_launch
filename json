@@ -1,0 +1,890 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Solid Launch API",
+        "description": "API in Hono",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000",
+            "description": "Local Server"
+        }
+    ],
+    "paths": {
+        "/api/auth": {
+            "get": {
+                "operationId": "getApiAuth",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {}
+            }
+        },
+        "/api/auth/profile": {
+            "get": {
+                "operationId": "getApiAuthProfile",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {}
+            },
+            "put": {
+                "operationId": "putApiAuthProfile",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "avatar_object_id": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/profile/avatar/upload-url": {
+            "post": {
+                "operationId": "postApiAuthProfileAvatarUpload-url",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {}
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "operationId": "postApiAuthLogin",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "email",
+                                    "password"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/logout": {
+            "get": {
+                "operationId": "getApiAuthLogout",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {}
+            }
+        },
+        "/api/auth/revoke": {
+            "post": {
+                "operationId": "postApiAuthRevoke",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "revokeId": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "revokeId"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/register": {
+            "post": {
+                "operationId": "postApiAuthRegister",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "email",
+                                    "password"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/login/google": {
+            "get": {
+                "operationId": "getApiAuthLoginGoogle",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {},
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "redirect_url",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            }
+        },
+        "/api/auth/login/google/callback": {
+            "get": {
+                "operationId": "getApiAuthLoginGoogleCallback",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {}
+            }
+        },
+        "/api/auth/login/github": {
+            "get": {
+                "operationId": "getApiAuthLoginGithub",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {},
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "redirect_url",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            }
+        },
+        "/api/auth/login/github/callback": {
+            "get": {
+                "operationId": "getApiAuthLoginGithubCallback",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {}
+            }
+        },
+        "/api/auth/login/otp": {
+            "post": {
+                "operationId": "postApiAuthLoginOtp",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+                                    }
+                                },
+                                "required": [
+                                    "email"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/login/otp/verify": {
+            "post": {
+                "operationId": "postApiAuthLoginOtpVerify",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "userId": {
+                                        "type": "string"
+                                    },
+                                    "code": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "userId",
+                                    "code"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/login/magic-link": {
+            "post": {
+                "operationId": "postApiAuthLoginMagic-link",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+                                    }
+                                },
+                                "required": [
+                                    "email"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/login/magic-link/verify": {
+            "get": {
+                "operationId": "getApiAuthLoginMagic-linkVerify",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {},
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "token",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "query",
+                        "name": "fallback_url",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            }
+        },
+        "/api/auth/forgot-password": {
+            "post": {
+                "operationId": "postApiAuthForgot-password",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+                                    }
+                                },
+                                "required": [
+                                    "email"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/forgot-password/verify": {
+            "get": {
+                "operationId": "getApiAuthForgot-passwordVerify",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {},
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "token",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ]
+            },
+            "post": {
+                "operationId": "postApiAuthForgot-passwordVerify",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "token": {
+                                        "type": "string"
+                                    },
+                                    "newPassword": {
+                                        "type": "string",
+                                        "minLength": 6,
+                                        "maxLength": 255
+                                    }
+                                },
+                                "required": [
+                                    "token",
+                                    "newPassword"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/verify-email": {
+            "post": {
+                "operationId": "postApiAuthVerify-email",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+                                    }
+                                },
+                                "required": [
+                                    "email"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/verify-email/verify": {
+            "get": {
+                "operationId": "getApiAuthVerify-emailVerify",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {},
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "token",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "query",
+                        "name": "fallback_url",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            }
+        },
+        "/api/auth/organizations": {
+            "get": {
+                "operationId": "getApiAuthOrganizations",
+                "tags": [
+                    "Auth",
+                    "Organization"
+                ],
+                "responses": {}
+            },
+            "post": {
+                "operationId": "postApiAuthOrganizations",
+                "tags": [
+                    "Auth",
+                    "Organization"
+                ],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 255
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "maxLength": 50
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "name"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/organizations/active": {
+            "get": {
+                "operationId": "getApiAuthOrganizationsActive",
+                "tags": [
+                    "Auth",
+                    "Organization"
+                ],
+                "responses": {}
+            },
+            "put": {
+                "operationId": "putApiAuthOrganizationsActive",
+                "tags": [
+                    "Auth",
+                    "Organization"
+                ],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "orgId": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "null"
+                                            }
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "orgId"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/organizations/{orgId}": {
+            "get": {
+                "operationId": "getApiAuthOrganizations:orgId",
+                "tags": [
+                    "Auth",
+                    "Organization"
+                ],
+                "responses": {},
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "orgId",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ]
+            },
+            "delete": {
+                "operationId": "deleteApiAuthOrganizations:orgId",
+                "tags": [
+                    "Auth",
+                    "Organization"
+                ],
+                "responses": {},
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "orgId",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ]
+            }
+        },
+        "/api/auth/organizations/{orgId}/members": {
+            "get": {
+                "operationId": "getApiAuthOrganizations:orgIdMembers",
+                "tags": [
+                    "Auth",
+                    "Organization"
+                ],
+                "responses": {},
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "orgId",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ]
+            }
+        },
+        "/api/auth/organizations/{orgId}/invite": {
+            "post": {
+                "operationId": "postApiAuthOrganizations:orgIdInvite",
+                "tags": [
+                    "Auth",
+                    "Organization"
+                ],
+                "responses": {},
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "orgId",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "format": "email",
+                                        "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+                                    },
+                                    "role": {
+                                        "type": "string",
+                                        "enum": [
+                                            "member",
+                                            "admin"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "email"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/organizations/{orgId}/invitations": {
+            "get": {
+                "operationId": "getApiAuthOrganizations:orgIdInvitations",
+                "tags": [
+                    "Auth",
+                    "Organization"
+                ],
+                "responses": {},
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "orgId",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ]
+            }
+        },
+        "/api/auth/organizations/invite/{invitationId}": {
+            "get": {
+                "operationId": "getApiAuthOrganizationsInvite:invitationId",
+                "tags": [
+                    "Auth",
+                    "Organization"
+                ],
+                "responses": {},
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "invitationId",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ]
+            }
+        },
+        "/api/auth/organizations/{orgId}/invitations/{invitationId}": {
+            "delete": {
+                "operationId": "deleteApiAuthOrganizations:orgIdInvitations:invitationId",
+                "tags": [
+                    "Auth",
+                    "Organization"
+                ],
+                "responses": {},
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "orgId",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "invitationId",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ]
+            }
+        },
+        "/api/auth/organizations/invite/{invitationId}/accept": {
+            "post": {
+                "operationId": "postApiAuthOrganizationsInvite:invitationIdAccept",
+                "tags": [
+                    "Auth",
+                    "Organization"
+                ],
+                "responses": {},
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "invitationId",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ]
+            }
+        },
+        "/api/auth/organizations/{orgId}/leave": {
+            "post": {
+                "operationId": "postApiAuthOrganizations:orgIdLeave",
+                "tags": [
+                    "Auth",
+                    "Organization"
+                ],
+                "responses": {},
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "orgId",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ]
+            }
+        },
+        "/api/auth/organizations/{orgId}/members/{userId}": {
+            "delete": {
+                "operationId": "deleteApiAuthOrganizations:orgIdMembers:userId",
+                "tags": [
+                    "Auth",
+                    "Organization"
+                ],
+                "responses": {},
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "orgId",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "userId",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ]
+            }
+        },
+        "/api/auth/organizations/{orgId}/members/{userId}/role": {
+            "patch": {
+                "operationId": "patchApiAuthOrganizations:orgIdMembers:userIdRole",
+                "tags": [
+                    "Auth",
+                    "Organization"
+                ],
+                "responses": {},
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "orgId",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "userId",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "role": {
+                                        "type": "string",
+                                        "enum": [
+                                            "member",
+                                            "admin",
+                                            "owner"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "role"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/payments/checkout/{variantId}": {
+            "get": {
+                "operationId": "getApiPaymentsCheckout:variantId",
+                "tags": [
+                    "Payments"
+                ],
+                "responses": {},
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "variantId",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ]
+            }
+        },
+        "/api/payments/webhook": {
+            "post": {
+                "operationId": "postApiPaymentsWebhook",
+                "tags": [
+                    "Payments"
+                ],
+                "responses": {}
+            }
+        },
+        "/api/testmail": {
+            "get": {
+                "operationId": "getApiTestmail",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "email",
+                        "schema": {
+                            "type": "string",
+                            "format": "email",
+                            "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {}
+                }
+            }
+        }
+    },
+    "components": {}
+}

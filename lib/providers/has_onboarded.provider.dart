@@ -22,7 +22,7 @@ class HasOnboardedProvider with ChangeNotifier {
       _hasOnboarded = prefs.getBool('hasOnboarded') ?? false;
 
       final allKeys = prefs.getKeys();
-      debugPrint("[Has Onboarded provider] ${allKeys}");
+      debugPrint("[has_onboarded.provider] allKeys: $allKeys");
 
       notifyListeners();
     } catch (e) {

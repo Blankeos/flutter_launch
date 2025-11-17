@@ -7,7 +7,6 @@ environment:
   sdk: ^3.8.1
 
 dependencies:
-  build_runner: ^2.4.15
   build_verify: ^3.1.0
   flutter:
     sdk: flutter
@@ -17,13 +16,20 @@ dependencies:
   provider: ^6.1.5
   smooth_page_indicator: ^1.2.1
   shared_preferences: ^2.5.3
+  dart_mappable: ^4.6.1
+  http: ^1.6.0
+  flutter_dotenv: ^6.0.0
+  command_it: ^9.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  build_runner: ^2.7.1
+  dart_mappable_builder: ^4.6.0
 
 flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - .env

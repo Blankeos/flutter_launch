@@ -1,6 +1,6 @@
+import 'package:barrio_bites/go_router_builder.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:go_router/go_router.dart';
 
 class DetailsScreen extends StatelessWidget {
   /// Constructs a [DetailsScreen]
@@ -12,7 +12,7 @@ class DetailsScreen extends StatelessWidget {
       appBar: PlatformAppBar(title: const Text('Details Screen')),
       body: Center(
         child: PlatformElevatedButton(
-          onPressed: () => context.go('/'),
+          onPressed: () => HomeScreenRoute().go(context),
           child: const Text('Go back to the Home screen'),
         ),
       ),

@@ -1,4 +1,4 @@
-import 'package:barrio_bites/providers/auth_provider.dart';
+import 'package:barrio_bites/providers/auth.provider.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import 'package:go_router/go_router.dart';
@@ -44,7 +44,7 @@ class _HomeScreen extends State<HomeScreen> {
 
             PlatformElevatedButton(
               onPressed: () {
-                auth.login();
+                auth.getCurrentUser();
               },
               child: const Text('Login (fake)'),
             ),

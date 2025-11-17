@@ -1,4 +1,5 @@
-import 'package:barrio_bites/providers/has_onboarded_provider.dart';
+import 'package:barrio_bites/go_router_builder.dart';
+import 'package:barrio_bites/providers/has_onboarded.provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -94,7 +95,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ),
                           onPressed: () {
                             hasOnboardedProvider.setHasOnboarded();
-                            context.replace("/");
+                            HomeScreenRoute().go(context);
                           },
                           child: const Text(
                             'Get Started',

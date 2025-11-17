@@ -1,15 +1,13 @@
-import 'package:barrio_bites/providers/auth_provider.dart';
-import 'package:barrio_bites/providers/has_onboarded_provider.dart';
-import 'package:barrio_bites/views/address_debugger.dart';
-import 'package:barrio_bites/views/details_screen.dart';
-import 'package:barrio_bites/views/home_screen.dart';
-import 'package:barrio_bites/views/onboarding_screen.dart';
+import 'package:barrio_bites/go_router_builder.dart';
+import 'package:barrio_bites/providers/auth.provider.dart';
+import 'package:barrio_bites/providers/has_onboarded.provider.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: '.env');
+
   runApp(
     MultiProvider(
       providers: [
@@ -21,69 +19,12 @@ void main() {
   );
 }
 
-// Route configuration
-final GoRouter _router = GoRouter(
-  redirect: (BuildContext context, GoRouterState state) async {
-    final hasOnboardedProvider = useHasOnboardedProvider(
-      context,
-      listen: false,
-    );
-    await hasOnboardedProvider.initLoad();
-
-    final bool hasOnboarded = hasOnboardedProvider.hasOnboarded;
-    if (!hasOnboarded && state.matchedLocation != '/onboarding') {
-      return '/onboarding';
-    }
-
-    return null;
-  },
-  routes: <RouteBase>[
-    ShellRoute(
-      builder: (context, state, child) => PlatformScaffold(
-        // body: Column(
-        //   mainAxisAlignment: MainAxisAlignment.start,
-        //   children: [child],
-        // ),
-        appBar: PlatformAppBar(title: AddressDebugger()),
-        body: child,
-        // bottomNavBar: PlatformNavBar(items: [
-        //   BottomNavigationBarItem(
-
-        //   )
-        // ]),
-      ),
-      routes: [
-        GoRoute(
-          path: '/',
-          builder: (BuildContext context, GoRouterState state) {
-            return const HomeScreen();
-          },
-          routes: <RouteBase>[
-            GoRoute(
-              path: 'details',
-              builder: (BuildContext context, GoRouterState state) {
-                return DetailsScreen();
-              },
-            ),
-            GoRoute(
-              path: 'onboarding',
-              builder: (BuildContext context, GoRouterState state) {
-                return OnboardingScreen();
-              },
-            ),
-          ],
-        ),
-      ],
-    ),
-  ],
-);
-
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp.router(routerConfig: _router);
+    return CupertinoApp.router(routerConfig: routerConfig);
   }
 }
 
