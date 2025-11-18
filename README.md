@@ -25,10 +25,10 @@ A new Flutter project.
 - [x] Cookie Auth + WebView Redirect (OAuth) - I would generally adivce using just `url_launcher`, feels safer. Not webview.
 - [ ] Canvas Skia?
 - [ ] Superwall? Paywall experiments?
-- [ ] Offline Experience - fallback + disabling actions (rn's netinfo)
+- [x] Offline Experience - fallback + disabling actions (rn's netinfo - connectivity_plus in flutter, I made a connectivity.provider.dart)
 - [ ] UI:Drag and Drop
 - [ ] UI: Morphing Modals
 - [ ] Apple-like bottomsheet
 - [ ] Lottie
-- [ ] Native Modules: Camera
+- [ ] Native Modules: Camera: https://www.youtube.com/watch?v=GsWQsw1R8NU
 - [ ] Native Modules: Location and Geo

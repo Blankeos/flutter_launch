@@ -18,7 +18,9 @@ class _OAuthCallbackScreenState extends State<OAuthCallbackScreen> {
     Future.delayed(const Duration(milliseconds: 500), () async {
       if (mounted && widget.authCode == null) {
         HomeScreenRoute().go(context);
+      }
 
+      if (mounted) {
         final auth = useAuth(context, listen: false);
         await auth.loginOAuthTokenCommand.runAsync(widget.authCode);
       }

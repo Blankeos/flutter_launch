@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_launch/providers/auth.provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_launch/providers/connectivity.provider.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -20,6 +21,9 @@ class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final auth = useAuth(context);
+
+    final connectivity = useConnectivityProvider(context);
+
     return PlatformScaffold(
       appBar: PlatformAppBar(title: const Text('Home Screen')),
       body: Center(
@@ -76,6 +80,13 @@ class _HomeScreen extends State<HomeScreen> {
                 },
                 child: const Text('Logout'),
               ),
+
+            Container(height: 20),
+
+            if (connectivity.isOnline)
+              Text('I am online')
+            else
+              Text('I am offline'),
           ],
         ),
       ),

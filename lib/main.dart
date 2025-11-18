@@ -1,5 +1,6 @@
 import 'package:flutter_launch/go_router_builder.dart';
 import 'package:flutter_launch/providers/auth.provider.dart';
+import 'package:flutter_launch/providers/connectivity.provider.dart';
 import 'package:flutter_launch/providers/has_onboarded.provider.dart';
 import 'package:flutter_launch/services/auth.service.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,6 +15,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => HasOnboardedProvider()),
+        ChangeNotifierProvider(create: (_) => ConnectivityProvider()),
       ],
       child: const MainApp(),
     ),
@@ -28,6 +30,7 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
+  // onMount: Initialize providers and services here.
   @override
   void initState() {
     super.initState();
@@ -38,6 +41,14 @@ class _MainAppState extends State<MainApp> {
       if (mounted) {
         final authProvider = useAuth(context, listen: false);
         await authProvider.init();
+      }
+
+      if (mounted) {
+        final connectivityProvider = useConnectivityProvider(
+          context,
+          listen: false,
+        );
+        await connectivityProvider.init();
       }
     });
   }
