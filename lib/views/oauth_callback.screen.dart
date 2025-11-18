@@ -1,5 +1,5 @@
-import 'package:barrio_bites/go_router_builder.dart';
-import 'package:barrio_bites/providers/auth.provider.dart';
+import 'package:flutter_launch/go_router_builder.dart';
+import 'package:flutter_launch/providers/auth.provider.dart';
 import 'package:flutter/material.dart';
 
 class OAuthCallbackScreen extends StatefulWidget {
@@ -15,21 +15,17 @@ class _OAuthCallbackScreenState extends State<OAuthCallbackScreen> {
   @override
   void initState() {
     super.initState();
-    // Simulate login process - will be replaced with actual loginOAuthToken() call
     Future.delayed(const Duration(milliseconds: 500), () async {
-      if (!mounted) return;
-
-      debugPrint("[oauth_callback.screen] ${widget.authCode}");
-      if (widget.authCode == null) {
+      if (mounted && widget.authCode == null) {
         HomeScreenRoute().go(context);
+
+        final auth = useAuth(context, listen: false);
+        await auth.loginOAuthTokenCommand.runAsync(widget.authCode);
       }
 
-      final auth = useAuth(context, listen: false);
-
-      await auth.loginOAuthTokenCommand.runAsync(widget.authCode);
-
-      // ignore: use_build_context_synchronously
-      HomeScreenRoute().go(context);
+      if (mounted) {
+        HomeScreenRoute().go(context);
+      }
     });
   }
 

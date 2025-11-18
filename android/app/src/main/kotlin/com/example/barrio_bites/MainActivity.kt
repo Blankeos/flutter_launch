@@ -1,4 +1,4 @@
-package com.example.barrio_bites
+package com.example.flutter_launch
 
 import io.flutter.embedding.android.FlutterActivity
 

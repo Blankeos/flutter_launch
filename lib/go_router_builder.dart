@@ -1,9 +1,9 @@
-import 'package:barrio_bites/providers/has_onboarded.provider.dart';
-import 'package:barrio_bites/views/address_debugger.dart';
-import 'package:barrio_bites/views/details.screen.dart';
-import 'package:barrio_bites/views/home.screen.dart';
-import 'package:barrio_bites/views/oauth_callback.screen.dart';
-import 'package:barrio_bites/views/onboarding.screen.dart';
+import 'package:flutter_launch/providers/has_onboarded.provider.dart';
+import 'package:flutter_launch/views/address_debugger.dart';
+import 'package:flutter_launch/views/details.screen.dart';
+import 'package:flutter_launch/views/home.screen.dart';
+import 'package:flutter_launch/views/oauth_callback.screen.dart';
+import 'package:flutter_launch/views/onboarding.screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:go_router/go_router.dart';

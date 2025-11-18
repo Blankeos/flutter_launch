@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:barrio_bites/providers/auth.provider.dart';
+import 'package:flutter_launch/providers/auth.provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -188,7 +188,6 @@ class _OAuthButtonsState extends State<OAuthButtons> {
         PlatformTextButton(
           onPressed: () async {
             final url = await auth.getLoginGoogleUrl();
-            debugPrint("URL: $url");
 
             await launchUrl(
               Uri.parse(url),

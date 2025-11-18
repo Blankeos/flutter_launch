@@ -1,7 +1,7 @@
-import 'package:barrio_bites/go_router_builder.dart';
-import 'package:barrio_bites/providers/auth.provider.dart';
-import 'package:barrio_bites/providers/has_onboarded.provider.dart';
-import 'package:barrio_bites/services/auth.service.dart';
+import 'package:flutter_launch/go_router_builder.dart';
+import 'package:flutter_launch/providers/auth.provider.dart';
+import 'package:flutter_launch/providers/has_onboarded.provider.dart';
+import 'package:flutter_launch/services/auth.service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';

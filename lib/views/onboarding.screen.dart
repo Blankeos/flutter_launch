@@ -1,5 +1,5 @@
-import 'package:barrio_bites/go_router_builder.dart';
-import 'package:barrio_bites/providers/has_onboarded.provider.dart';
+import 'package:flutter_launch/go_router_builder.dart';
+import 'package:flutter_launch/providers/has_onboarded.provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';

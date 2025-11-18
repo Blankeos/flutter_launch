@@ -1,6 +1,6 @@
 {
-    "name": "barrio_bites",
-    "short_name": "barrio_bites",
+    "name": "flutter_launch",
+    "short_name": "flutter_launch",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

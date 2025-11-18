@@ -1,6 +1,6 @@
-import 'package:barrio_bites/services/auth.service.dart';
-import 'package:barrio_bites/services/user_response.model.dart';
-import 'package:barrio_bites/utils/pkce.dart';
+import 'package:flutter_launch/services/auth.service.dart';
+import 'package:flutter_launch/services/user_response.model.dart';
+import 'package:flutter_launch/utils/pkce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
