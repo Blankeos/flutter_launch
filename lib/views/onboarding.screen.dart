@@ -1,9 +1,7 @@
 import 'package:flutter_launch/go_router_builder.dart';
 import 'package:flutter_launch/providers/has_onboarded.provider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -27,7 +25,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget build(BuildContext context) {
     final hasOnboardedProvider = useHasOnboardedProvider(context, listen: true);
 
-    final List<Widget> _onboardingPages = [
+    final List<Widget> onboardingPages = [
       _OnboardingPage(
         title:
             'Welcome to Barrio Bites!! ${hasOnboardedProvider.hasOnboarded ? "(onboarded)" : "(not onboarded)"}',
@@ -51,64 +49,69 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     ];
 
     return Scaffold(
-      body: Stack(
-        children: [
-          PageView.builder(
-            controller: _pageController,
-            itemCount: _onboardingPages.length,
-            onPageChanged: (index) {
-              setState(() {
-                _currentPage = index;
-              });
-            },
-            itemBuilder: (context, index) {
-              return _onboardingPages[index];
-            },
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 40.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SmoothPageIndicator(
-                    controller: _pageController,
-                    count: _onboardingPages.length,
-                    effect: const ExpandingDotsEffect(
-                      dotHeight: 10,
-                      dotWidth: 10,
-                      activeDotColor: Colors.deepOrange,
-                      dotColor: Colors.grey,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            PageView.builder(
+              controller: _pageController,
+              itemCount: onboardingPages.length,
+              onPageChanged: (index) {
+                setState(() {
+                  _currentPage = index;
+                });
+              },
+              itemBuilder: (context, index) {
+                return onboardingPages[index];
+              },
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SmoothPageIndicator(
+                      controller: _pageController,
+                      count: onboardingPages.length,
+                      effect: const ExpandingDotsEffect(
+                        dotHeight: 10,
+                        dotWidth: 10,
+                        activeDotColor: Colors.deepOrange,
+                        dotColor: Colors.grey,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 30),
-                  if (_currentPage == _onboardingPages.length - 1)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: 50,
-                        child: PlatformElevatedButton(
-                          cupertino: (_, __) => CupertinoElevatedButtonData(
-                            color: Colors.deepOrange,
-                          ),
-                          onPressed: () {
-                            hasOnboardedProvider.setHasOnboarded();
-                            HomeScreenRoute().go(context);
-                          },
-                          child: const Text(
-                            'Get Started',
-                            style: TextStyle(fontSize: 18, color: Colors.white),
+                    const SizedBox(height: 30),
+                    if (_currentPage == onboardingPages.length - 1)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                        child: SizedBox(
+                          width: double.infinity,
+                          height: 50,
+                          child: PlatformElevatedButton(
+                            cupertino: (_, __) => CupertinoElevatedButtonData(
+                              color: Colors.deepOrange,
+                            ),
+                            onPressed: () {
+                              hasOnboardedProvider.setHasOnboarded();
+                              HomeScreenRoute().go(context);
+                            },
+                            child: const Text(
+                              'Get Started',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

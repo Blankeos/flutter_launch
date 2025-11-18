@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_launch/go_router_builder.dart';
-import 'package:flutter_launch/views/address_debugger.dart';
+import 'package:flutter_launch/components/address_debugger.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:go_router/go_router.dart';
 
@@ -20,7 +20,7 @@ class AppScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PlatformScaffold(
-      appBar: PlatformAppBar(title: const AddressDebugger()),
+      // appBar: PlatformAppBar(title: const AddressDebugger()),
       body: child,
       bottomNavBar: PlatformNavBar(
         itemChanged: (index) {
@@ -36,11 +36,11 @@ class AppScaffold extends StatelessWidget {
         currentIndex: _calculateCurrentIndex(state),
         items: [
           BottomNavigationBarItem(
-            icon: Icon(context.platformIcons.home),
+            icon: Icon(context.platformIcons.home, size: 24),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(context.platformIcons.info),
+            icon: Icon(context.platformIcons.info, size: 24),
             label: 'Details',
           ),
         ],

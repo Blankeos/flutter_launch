@@ -26,68 +26,72 @@ class _HomeScreen extends State<HomeScreen> {
 
     return PlatformScaffold(
       appBar: PlatformAppBar(title: const Text('Home Screen')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            PlatformElevatedButton(
-              onPressed: () {
-                GoRouter.of(context).go("/details");
-              },
-              child: const Text('Go to the Details screen'),
-            ),
-            Container(height: 50),
-            PlatformElevatedButton(
-              onPressed: () {
-                GoRouter.of(context).replace("/onboarding");
-              },
-              child: const Text('Go to Onboarding'),
-            ),
-            Container(height: 50),
-
-            if (auth.isAuthenticated)
-              Text(
-                JsonEncoder.withIndent('  ').convert(auth.user),
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 14.0, // Optional: adjust size for readability
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                PlatformElevatedButton(
+                  onPressed: () {
+                    GoRouter.of(context).go("/details");
+                  },
+                  child: const Text('Go to the Details screen'),
                 ),
-              )
-            else
-              const Text("Is not Authenticated"),
-            Container(height: 50),
+                Container(height: 50),
+                PlatformElevatedButton(
+                  onPressed: () {
+                    GoRouter.of(context).replace("/onboarding");
+                  },
+                  child: const Text('Go to Onboarding'),
+                ),
+                Container(height: 50),
 
-            PlatformElevatedButton(
-              onPressed: () {
-                auth.getCurrentUser();
-              },
-              child: const Text('Get current user'),
+                if (auth.isAuthenticated)
+                  Text(
+                    JsonEncoder.withIndent('  ').convert(auth.user),
+                    style: const TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 14.0, // Optional: adjust size for readability
+                    ),
+                  )
+                else
+                  const Text("Is not Authenticated"),
+                Container(height: 50),
+
+                PlatformElevatedButton(
+                  onPressed: () {
+                    auth.getCurrentUser();
+                  },
+                  child: const Text('Get current user'),
+                ),
+                Container(height: 20),
+
+                OtpLoginForm(),
+
+                Container(height: 20),
+
+                OAuthButtons(),
+
+                Container(height: 20),
+
+                if (auth.isAuthenticated)
+                  PlatformElevatedButton(
+                    onPressed: () {
+                      auth.logoutCommand.run();
+                    },
+                    child: const Text('Logout'),
+                  ),
+
+                Container(height: 20),
+
+                if (connectivity.isOnline)
+                  Text('I am online')
+                else
+                  Text('I am offline'),
+              ],
             ),
-            Container(height: 20),
-
-            OtpLoginForm(),
-
-            Container(height: 20),
-
-            OAuthButtons(),
-
-            Container(height: 20),
-
-            if (auth.isAuthenticated)
-              PlatformElevatedButton(
-                onPressed: () {
-                  auth.logoutCommand.run();
-                },
-                child: const Text('Logout'),
-              ),
-
-            Container(height: 20),
-
-            if (connectivity.isOnline)
-              Text('I am online')
-            else
-              Text('I am offline'),
-          ],
+          ),
         ),
       ),
     );
