@@ -1,11 +1,10 @@
 import 'package:flutter_launch/providers/has_onboarded.provider.dart';
-import 'package:flutter_launch/views/address_debugger.dart';
+import 'package:flutter_launch/views/app_scaffold.dart';
 import 'package:flutter_launch/views/details.screen.dart';
 import 'package:flutter_launch/views/home.screen.dart';
 import 'package:flutter_launch/views/oauth_callback.screen.dart';
 import 'package:flutter_launch/views/onboarding.screen.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:go_router/go_router.dart';
 
 part 'go_router_builder.g.dart';
@@ -68,9 +67,12 @@ final routerConfig = GoRouter(
   },
   routes: [
     ShellRoute(
-      builder: (context, state, child) => PlatformScaffold(
-        appBar: PlatformAppBar(title: AddressDebugger()),
-        body: child,
+      builder: (context, state, child) => AppScaffold(
+        key: ValueKey(
+          state.fullPath,
+        ), // Very necessary for the scaffold to change.
+        state: state,
+        child: child,
       ),
       routes: $appRoutes,
     ),

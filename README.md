@@ -17,6 +17,8 @@ A new Flutter project.
 - [x] DeepLinks (handled by go_router by default, just make sure to add schemes in the manifests)
 - [x] API Calls & Parsing models
 - [x] Svgs and Static Images, Images from src. (flutter_svg)
+- [ ] Branding: App icon
+- [x] Branding: App name (in the Info.plist, Android ??)
 - [ ] Fonts
 - [ ] Gestures Tap and Touch
 - [ ] Gestures Swipe, used for navigation?
